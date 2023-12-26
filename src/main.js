@@ -7,6 +7,7 @@ import "lib-flexible";
 
 import Vant from "vant";
 import "vant/lib/index.css";
+import "@/assets/reset_vant.scss";
 
 Vue.use(Vant);
 Vue.config.productionTip = false;
