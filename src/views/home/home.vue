@@ -1,14 +1,17 @@
 <template>
   <div class="home">
     <home-header v-model="currentCategory" />
-    {{ category }}
+    <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
+      <van-swipe-item v-for="item in slides" :key="item.key">
+        {{ item.title }}
+      </van-swipe-item>
+    </van-swipe>
   </div>
 </template>
 <script>
 import HomeHeader from "./homer-header.vue";
 import { createNamespacedHelpers } from "vuex";
 import * as Types from "@/store/action-types";
-
 let {
   mapState: mapHomeState,
   mapActions,
@@ -22,11 +25,17 @@ export default {
   data() {
     return {};
   },
+  mounted() {
+    if (this.slides.length === 0) {
+      this[Types.SET_SLIDES]();
+    }
+  },
   methods: {
     ...mapMutations([Types.SET_CATEGORY]),
+    ...mapActions([Types.SET_SLIDES]),
   },
   computed: {
-    ...mapHomeState(["category"]),
+    ...mapHomeState(["category", "slides"]),
     currentCategory: {
       get() {
         return this.category;
