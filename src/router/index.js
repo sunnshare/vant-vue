@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import Home from "@/views/home/home.vue";
 
 import Loadable from "@/util/loadable";
+import hooks from "./hooks";
 
 Vue.use(VueRouter);
 
@@ -27,6 +28,10 @@ const routes = [
 const router = new VueRouter({
   mode: "history",
   routes,
+});
+
+Object.values(hooks).forEach((hook) => {
+  router.beforeEach(hook);
 });
 
 export default router;

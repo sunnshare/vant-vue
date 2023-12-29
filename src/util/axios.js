@@ -1,4 +1,6 @@
 import axios from "axios";
+import * as Types from "@/store/action-types";
+import store from "@/store";
 
 class HttpRequest {
   constructor() {
@@ -15,10 +17,11 @@ class HttpRequest {
 
       // 将取消函数绑定在 config 上
       let CancelToken = axios.CancelToken;
-      config.cancelToken = new CancelToken((c) => {});
+      config.cancelToken = new CancelToken((c) => {
+        store.commit(Types.SET_TOKEN, c);
+      });
       // 存入当前请求
       this.queue[url] = true;
-      console.log(config);
       return config;
     });
 
@@ -26,7 +29,6 @@ class HttpRequest {
       (res) => {
         // 从队列里删除该请求
         delete this.queue[url];
-
         if (Object.keys(this.queue).length === 0) {
           // close loading
         }
@@ -38,6 +40,9 @@ class HttpRequest {
       },
       (err) => {
         delete this.queue[url];
+        if (Object.keys(this.queue).length === 0) {
+          // close loading
+        }
         return Promise.reject(err);
       }
     );
