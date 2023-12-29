@@ -1,6 +1,6 @@
 let express = require("express"); //引入express
 let Mock = require("mockjs"); //引入mock
-
+let Random = Mock.Random;
 let app = express(); //实例化express
 
 app.use(function (req, res, next) {
@@ -8,7 +8,13 @@ app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Methods", "PUT, GET, POST, DELETE, OPTIONS");
   res.header("Access-Control-Allow-Headers", "X-Requested-With");
   res.header("Access-Control-Allow-Headers", "Content-Type");
-  next();
+  res.header("Access-Control-Allow-Headers", "Authorization");
+  res.header("Access-Control-Expose-Headers", "Authorization");
+  if (req.method.toLowerCase() == "options") {
+    res.sendStatus(200); //让options尝试请求快速结束
+  } else {
+    next();
+  }
 });
 
 app.use("/api/slides", function (req, res) {
@@ -31,6 +37,49 @@ app.use("/api/slides", function (req, res) {
       })
     );
   }, 2000);
+});
+
+app.use("/user/login", function (req, res) {
+  if (Math.random(1) > 0.5) {
+    res.json(
+      Mock.mock({
+        status: 200,
+        data: {
+          token: Random.string(20),
+          username: "admin",
+          "authList|1-2": [
+            { auth: "auth1", name: "auth1", path: "/profile/auth1" },
+            { auth: "auth2", name: "auth2", path: "/profile/auth2" },
+            { auth: "auth3", name: "auth3", path: "/profile/auth3" },
+          ],
+        },
+      })
+    );
+  } else {
+    res.json({
+      status: 403,
+      data: {
+        message: "没有权限",
+      },
+    });
+  }
+});
+
+app.use("/user/validate", function (req, res) {
+  res.json(
+    Mock.mock({
+      status: 200,
+      data: {
+        token: Random.string(20),
+        username: "admin",
+        "authList|1-2": [
+          { auth: "auth1", name: "auth1", path: "/profile/auth1" },
+          { auth: "auth2", name: "auth2", path: "/profile/auth2" },
+          { auth: "auth3", name: "auth3", path: "/profile/auth3" },
+        ],
+      },
+    })
+  );
 });
 
 app.listen("3000", () => {

@@ -25,9 +25,13 @@ export default {
   data() {
     return {};
   },
-  mounted() {
+  async mounted() {
     if (this.slides.length === 0) {
-      this[Types.SET_SLIDES]();
+      try {
+        await this[Types.SET_SLIDES]();
+      } catch (e) {
+        console.log(e);
+      }
     }
   },
   methods: {

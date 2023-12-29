@@ -25,5 +25,5 @@ const store = new Vuex.Store({
     ...modules,
   },
 });
-
+window.store = store;
 export default store;

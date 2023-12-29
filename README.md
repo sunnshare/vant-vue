@@ -18,7 +18,7 @@ pnpm run dev
 pnpm run build
 ```
 
-### run node server
+### Run node server
 
 ```
 pnpm run server

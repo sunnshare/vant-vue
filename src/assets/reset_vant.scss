@@ -1,6 +1,10 @@
-.van-dropdown-menu__bar {
-  background: $background;
-}
-.van-dropdown-menu__title {
-  color: $color;
+#app {
+  .van-dropdown-menu__bar,
+  .van-nav-bar {
+    background-color: $background;
+  }
+  .van-dropdown-menu__title,
+  .van-nav-bar__title {
+    color: $color;
+  }
 }

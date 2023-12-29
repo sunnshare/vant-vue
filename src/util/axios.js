@@ -15,6 +15,11 @@ class HttpRequest {
         // 开启 loading
       }
 
+      let token = localStorage.getItem("token");
+      if (token) {
+        config.headers.authorization = token;
+      }
+
       // 将取消函数绑定在 config 上
       let CancelToken = axios.CancelToken;
       config.cancelToken = new CancelToken((c) => {
@@ -32,7 +37,7 @@ class HttpRequest {
         if (Object.keys(this.queue).length === 0) {
           // close loading
         }
-        if (res.status === 200) {
+        if (res.data.status === 200) {
           return res.data.data;
         } else {
           return Promise.reject(res.data);
