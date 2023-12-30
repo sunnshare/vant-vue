@@ -18,7 +18,7 @@ const routes = [
     name: "lesson",
     component: Loadable(() => import("@/views/lesson/lesson.vue")),
     meta: {
-      needLogin: true,
+      needPermission: true,
     },
   },
   {
@@ -38,13 +38,20 @@ const routes = [
   },
 ];
 
-const router = new VueRouter({
-  mode: "history",
-  routes,
-});
+const createRouter = (routes = []) =>
+  new VueRouter({
+    mode: "history",
+    routes,
+  });
+
+const router = createRouter(routes);
 
 Object.values(hooks).forEach((hook) => {
   router.beforeEach(hook);
 });
 
 export default router;
+
+export const resetRouter = () => {
+  router.matcher = createRouter().matcher;
+};

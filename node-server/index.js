@@ -47,10 +47,9 @@ app.use("/user/login", function (req, res) {
         data: {
           token: Random.string(20),
           username: "admin",
-          "authList|1-2": [
+          authList: [
             { auth: "auth1", name: "auth1", path: "/profile/auth1" },
             { auth: "auth2", name: "auth2", path: "/profile/auth2" },
-            { auth: "auth3", name: "auth3", path: "/profile/auth3" },
           ],
         },
       })
@@ -72,10 +71,9 @@ app.use("/user/validate", function (req, res) {
       data: {
         token: Random.string(20),
         username: "admin",
-        "authList|1-2": [
+        authList: [
           { auth: "auth1", name: "auth1", path: "/profile/auth1" },
           { auth: "auth2", name: "auth2", path: "/profile/auth2" },
-          { auth: "auth3", name: "auth3", path: "/profile/auth3" },
         ],
       },
     })

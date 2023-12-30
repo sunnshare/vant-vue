@@ -4,7 +4,7 @@ const userState = {
   token: "",
   authList: [], // 菜单权限列表
   menuPermission: false,
-  btnPermission: [], // 权限列表
+  btnPermission: ["edit"], // 按钮权限列表
 };
 
 export default userState;

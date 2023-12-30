@@ -21,3 +21,9 @@ export const SET_PERMISSION = "SET_PERMISSION";
 
 // 权限校验
 export const VALIDATE = "VALIDATE";
+
+// 动态添加路由
+export const ADD_ROUTE = "ADD_ROUTE";
+
+// 设置菜单权限
+export const SET_MENU_PERMISSION = "SET_MENU_PERMISSION";
