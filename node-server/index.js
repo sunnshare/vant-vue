@@ -6,10 +6,10 @@ let app = express(); //实例化express
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Methods", "PUT, GET, POST, DELETE, OPTIONS");
-  res.header("Access-Control-Allow-Headers", "X-Requested-With");
-  res.header("Access-Control-Allow-Headers", "Content-Type");
-  res.header("Access-Control-Allow-Headers", "Authorization");
-  res.header("Access-Control-Expose-Headers", "Authorization");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Content-Type, Authorization, X-Requested-With"
+  );
   if (req.method.toLowerCase() == "options") {
     res.sendStatus(200); //让options尝试请求快速结束
   } else {
