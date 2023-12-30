@@ -17,6 +17,9 @@ const routes = [
     path: "/lesson",
     name: "lesson",
     component: Loadable(() => import("@/views/lesson/lesson.vue")),
+    meta: {
+      needLogin: true,
+    },
   },
   {
     path: "/profile",

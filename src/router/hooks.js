@@ -8,7 +8,36 @@ export default {
     next();
   },
   login_permission: async (to, from, next) => {
-    await store.dispatch(`user/${Types.VALIDATE}`);
+    let needLogin = to.matched.some((item) => item.meta.needLogin);
+
+    if (!store.state.user.hasPermission) {
+      let isLogin = await store.dispatch(`user/${Types.VALIDATE}`);
+
+      if (needLogin) {
+        if (!isLogin) {
+          next("/login");
+        } else {
+          next();
+        }
+      } else {
+        if (to.name === "login") {
+          if (!isLogin) {
+            next();
+          } else {
+            next("/profile");
+          }
+        } else {
+          next();
+        }
+      }
+    } else {
+      if (to.name === "login") {
+        next("/profile");
+      } else {
+        next();
+      }
+    }
+
     next();
   },
 };

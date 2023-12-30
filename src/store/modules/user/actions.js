@@ -17,6 +17,7 @@ const userActions = {
     try {
       let userInfo = await validate();
       dispatch(Types.SET_USER, { userInfo, has: true });
+      return true;
     } catch (e) {
       dispatch(Types.SET_USER, { userInfo: {}, has: false });
       return false;
